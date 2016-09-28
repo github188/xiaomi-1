@@ -116,29 +116,29 @@ var leftArr1 = document.getElementById('leftArrow1');
 var rightArr1 = document.getElementById('rightArrow1');
 var arrL = document.getElementById('arrL');
 var arrR = document.getElementById('arrR');
-var flag1 = 0;
+var flag1 = [1,2,3];
+var step = 0;
+
 
 arrR.onclick = function () {
-    flag1 = flag1 ? flag1 : 1;
-    animate(bannerInner3, {left: -flag1 * 1240}, 300);
-    flag1++;
-    utils.css(leftArr1, "display", "block");
-    if (flag1 == 4){
-        utils.css(rightArr1,"display","none");
-        arrR.onclick = false;
-    }
-};
-
-var step = -2;
-arrL.onclick = function () {
-    step = step ? step : 0;
-    console.log(step);
-    animate(bannerInner3, {left: step * 1240}, 300);
+    var curF = flag1[step];
+    animate(bannerInner3, {left: -curF * 1240}, 300);
     step++;
-    utils.css(rightArr1, "display", "block");
-    if (step == 1){
-        utils.css(leftArr1,"display","none");
-        arrL.onclick = false;
+    utils.css(leftArr1, "display", "block");
+    if (curF == 3){
+        utils.css(rightArr1,"display","none");
+        step = 2;
     }
+    arrL.onclick = function () {
+        curF--;
+        animate(bannerInner3, {left: -curF * 1240}, 300);
+        utils.css(rightArr1,"display","block");
+        step--;
+        if (curF == 0){
+            utils.css(leftArr1,"display","none");
+            arrL.onclick = false;
+            step = 0;
+        }
+    };
 };
 
